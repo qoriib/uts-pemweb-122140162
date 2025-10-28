@@ -1,7 +1,7 @@
 # CryptoTrackr
 
 UTS Pemrograman Web ReactJS Application – Digit 2 Cryptocurrency Tracker  
-Author: Nashrullah Aji Wicaksono (NIM: 122140162)
+Author: Nashrullah Fathul Qoriib (NIM: 122140162)
 
 ## Deskripsi
 
@@ -51,29 +51,35 @@ CryptoTrackr merupakan aplikasi ReactJS untuk memantau harga cryptocurrency meng
 ## Persiapan & Instalasi
 
 1. **Clone repository**
+
    ```bash
-   git clone https://github.com/nashrullahajiwicaksono/uts-pemweb-122140162.git
+   git clone https://github.com/qoriib/uts-pemweb-122140162.git
    cd uts-pemweb-122140162
    ```
 
 2. **Install dependency**
+
    ```bash
    npm install
    ```
 
 3. **Konfigurasi environment (opsional, untuk API key CoinGecko)**
+
    ```bash
    cp .env.example .env
    ```
-   | Variabel | Default | Deskripsi |
-   | --- | --- | --- |
+
+   | Variabel                      | Default                            | Deskripsi                                                                |
+   | ----------------------------- | ---------------------------------- | ------------------------------------------------------------------------ |
    | `VITE_COINGECKO_API_BASE_URL` | `https://api.coingecko.com/api/v3` | Ubah ke `https://pro-api.coingecko.com/api/v3` jika menggunakan Pro API. |
-   | `VITE_COINGECKO_API_KEY` | _(kosong)_ | API key Pro/Demo yang akan dikirim melalui header sesuai domain. |
+   | `VITE_COINGECKO_API_KEY`      | _(kosong)_                         | API key Pro/Demo yang akan dikirim melalui header sesuai domain.         |
 
 4. **Jalankan aplikasi dalam mode pengembangan**
+
    ```bash
    npm run dev
    ```
+
    Aplikasi dapat diakses melalui URL yang ditampilkan di terminal (default: `http://localhost:5173`).
 
 5. **Build untuk produksi**
