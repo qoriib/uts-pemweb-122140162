@@ -1,0 +1,53 @@
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #1f2933;
+}
+
+.app-header .subtitle {
+  margin: 0.25rem 0;
+  color: var(--muted);
+}
+
+.app-header .meta {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #475569;
+}
+
+.refresh-button {
+  border: 1px solid var(--border);
+  background-color: #e2e8f0;
+  color: #1f2933;
+  font-weight: 600;
+  padding: 0.6rem 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.refresh-button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+@media (max-width: 720px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .refresh-button {
+    width: 100%;
+    text-align: center;
+  }
+}
