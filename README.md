@@ -15,7 +15,7 @@ CryptoTrackr merupakan aplikasi ReactJS untuk memantau harga cryptocurrency meng
 - Kalkulator portofolio untuk menghitung total nilai aset berdasarkan harga terbaru.
 - Tombol refresh data dengan indikator loading untuk memperbarui informasi secara instan.
 - Desain responsif berbasis Bootstrap standar.
-- Dukungan multi-currency (USD, EUR, IDR, SOL) mengikuti pembaruan dokumentasi CoinGecko.
+- Dukungan multi-currency (USD, EUR, IDR, SOL) mengikuti dokumentasi CoinGecko.
 
 ## Tech Stack
 
@@ -96,7 +96,7 @@ Proyek siap dideploy ke **Vercel**.
 2. Hubungkan repository ke Vercel dan deploy.
 3. Tambahkan link deployment ke bagian berikut:
 
-- **Link Vercel**: https://your-vercel-deployment-url.vercel.app
+- **Link Vercel**: https://uts-pemweb-122140162.vercel.app
 
 ## Dokumentasi Tambahan
 
