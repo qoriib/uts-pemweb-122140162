@@ -87,32 +87,3 @@ CryptoTrackr merupakan aplikasi ReactJS untuk memantau harga cryptocurrency meng
    npm run build
    npm run preview
    ```
-
-## Deployment
-
-Proyek siap dideploy ke **Vercel**.
-
-1. Push kode ke repository GitHub (pastikan minimal 10 commit dengan pesan yang jelas).
-2. Hubungkan repository ke Vercel dan deploy.
-3. Tambahkan link deployment ke bagian berikut:
-
-- **Link Vercel**: https://uts-pemweb-122140162.vercel.app
-
-## Dokumentasi Tambahan
-
-- **API**: [CoinGecko API](https://www.coingecko.com/en/api/documentation)
-- **Screenshot Aplikasi**: ![Screenshot](./docs/screenshot.png)
-  > Perbarui gambar ini setelah mengambil tangkapan layar dari aplikasi yang sudah dijalankan.
-
-## Checklist Pengumpulan
-
-- [x] Kode berjalan tanpa error di console.
-- [x] Semua fitur wajib (tabel, filter harga, detail dengan chart, kalkulator portofolio, refresh) tersedia.
-- [x] Validasi form menggunakan atribut HTML5.
-- [x] Integrasi CoinGecko berhasil dengan state loading dan error.
-- [x] Desain responsif di mobile dan desktop.
-- [ ] Deployment Vercel aktif dan link tercantum di README.
-
-## Lisensi
-
-Proyek ini dibuat untuk memenuhi tugas UTS Pemrograman Web. Silakan kembangkan lebih lanjut sesuai kebutuhan.
