@@ -87,3 +87,9 @@ CryptoTrackr merupakan aplikasi ReactJS untuk memantau harga cryptocurrency meng
    npm run build
    npm run preview
    ```
+
+## Dokumentasi Tambahan
+
+- **API**: [CoinGecko API](https://www.coingecko.com/en/api/documentation)
+- **Screenshot Aplikasi**  
+  ![Screenshot](https://raw.githubusercontent.com/qoriib/uts-pemweb-122140162/refs/heads/main/screenshots/full-screenshot.png)
