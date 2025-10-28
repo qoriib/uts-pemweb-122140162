@@ -1,69 +1,44 @@
+import axios from 'axios';
+
 const defaultBaseUrl =
   (import.meta.env.VITE_COINGECKO_API_BASE_URL ?? 'https://api.coingecko.com/api/v3').replace(/\/+$/, '');
 
 const apiKey = import.meta.env.VITE_COINGECKO_API_KEY?.trim();
-
 const isProEndpoint = defaultBaseUrl.includes('pro-api.coingecko.com');
 const keyHeaderName = isProEndpoint ? 'x-cg-pro-api-key' : 'x-cg-demo-api-key';
-
-const buildUrl = (path, params = {}) => {
-  const safePath = path.startsWith('/') ? path.slice(1) : path;
-  const url = new URL(`${defaultBaseUrl}/${safePath}`);
-  const searchParams = new URLSearchParams(url.search);
-
-  Object.entries(params).forEach(([key, value]) => {
-    if (value === undefined || value === null) {
-      return;
-    }
-    if (Array.isArray(value)) {
-      value.forEach((item) => {
-        if (item !== undefined && item !== null) {
-          searchParams.append(key, String(item));
-        }
-      });
-    } else {
-      searchParams.append(key, String(value));
-    }
-  });
-
-  url.search = searchParams.toString();
-  return url.toString();
-};
-
-export const coingeckoFetch = async (path, { params, signal } = {}) => {
-  const url = buildUrl(path, params);
-
-  const headers = apiKey
+const client = axios.create({
+  baseURL: defaultBaseUrl,
+  headers: apiKey
     ? {
         [keyHeaderName]: apiKey,
       }
-    : undefined;
+    : undefined,
+});
 
-  const response = await fetch(url, { headers, signal });
+export const coingeckoFetch = async (path, { params, signal } = {}) => {
+  const safePath = path.startsWith('/') ? path.slice(1) : path;
 
-  if (!response.ok) {
-    let message = `Failed to fetch CoinGecko data (${response.status})`;
-
-    try {
-      const errorBody = await response.json();
-      if (errorBody?.error) {
-        message = errorBody.error;
-      } else if (errorBody?.message) {
-        message = errorBody.message;
-      }
-    } catch {
-      const text = await response.text().catch(() => '');
-      if (text) {
-        message = text;
-      }
+  try {
+    const response = await client.get(safePath || '', { params, signal });
+    return response.data;
+  } catch (error) {
+    if ((axios.isCancel && axios.isCancel(error)) || error.code === 'ERR_CANCELED') {
+      throw error;
     }
 
-    const error = new Error(message);
-    error.status = response.status;
-    throw error;
-  }
+    const status = error.response?.status;
+    const message =
+      error.response?.data?.error ||
+      error.response?.data?.message ||
+      error.message ||
+      'Failed to fetch CoinGecko data';
 
-  return response.json();
+    const wrappedError = new Error(message);
+    if (status) {
+      wrappedError.status = status;
+    }
+    throw wrappedError;
+  }
 };
 
 export const getCoingeckoConfig = () => ({

@@ -1,18 +1,17 @@
-import { useEffect, useMemo, useState } from 'react';
-import { format } from 'date-fns';
-import Header from './components/Header.jsx';
-import SearchForm from './components/SearchForm.jsx';
-import DataTable from './components/DataTable.jsx';
-import DetailCard from './components/DetailCard.jsx';
-import PortfolioCalculator from './components/PortfolioCalculator.jsx';
-import { coingeckoFetch } from './api/client.js';
-import './App.css';
+import { useEffect, useMemo, useState } from "react";
+import { format } from "date-fns";
+import { coingeckoFetch } from "./api/client.js";
+import Header from "./components/Header.jsx";
+import SearchForm from "./components/SearchForm.jsx";
+import DataTable from "./components/DataTable.jsx";
+import DetailCard from "./components/DetailCard.jsx";
+import PortfolioCalculator from "./components/PortfolioCalculator.jsx";
 
 const defaultFilters = {
-  keyword: '',
-  minPrice: '',
-  maxPrice: '',
-  currency: 'usd',
+  keyword: "",
+  minPrice: "",
+  maxPrice: "",
+  currency: "usd",
   positiveChangeOnly: false,
 };
 
@@ -20,27 +19,27 @@ const App = () => {
   const [filters, setFilters] = useState(defaultFilters);
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [lastUpdated, setLastUpdated] = useState('');
+  const [error, setError] = useState("");
+  const [lastUpdated, setLastUpdated] = useState("");
 
-  const [selectedCoinId, setSelectedCoinId] = useState('');
+  const [selectedCoinId, setSelectedCoinId] = useState("");
   const [coinDetail, setCoinDetail] = useState(null);
   const [chartPoints, setChartPoints] = useState([]);
   const [detailLoading, setDetailLoading] = useState(false);
-  const [detailError, setDetailError] = useState('');
+  const [detailError, setDetailError] = useState("");
 
   const fetchMarketData = async (currency) => {
     setLoading(true);
-    setError('');
+    setError("");
     try {
-      const data = await coingeckoFetch('/coins/markets', {
+      const data = await coingeckoFetch("/coins/markets", {
         params: {
           vs_currency: currency,
-          order: 'market_cap_desc',
-          per_page: '100',
-          page: '1',
-          sparkline: 'false',
-          price_change_percentage: '24h',
+          order: "market_cap_desc",
+          per_page: "100",
+          page: "1",
+          sparkline: "false",
+          price_change_percentage: "24h",
         },
       });
       setCoins(data);
@@ -48,16 +47,18 @@ const App = () => {
         if (prev && data.some((coin) => coin.id === prev)) {
           return prev;
         }
-        return data[0]?.id || '';
+        return data[0]?.id || "";
       });
-      const serverTimestamp = data.find((coin) => coin.last_updated)?.last_updated;
+      const serverTimestamp = data.find(
+        (coin) => coin.last_updated
+      )?.last_updated;
       setLastUpdated(serverTimestamp || new Date().toISOString());
       return data;
     } catch (fetchError) {
-      if (fetchError?.name === 'AbortError') {
+      if (fetchError?.name === "AbortError") {
         return [];
       }
-      setError(fetchError.message || 'An unexpected error occurred.');
+      setError(fetchError.message || "An unexpected error occurred.");
       return [];
     } finally {
       setLoading(false);
@@ -70,42 +71,42 @@ const App = () => {
 
   const fetchCoinDetail = async (coinId, currency, signal) => {
     setDetailLoading(true);
-    setDetailError('');
+    setDetailError("");
     try {
       const [detailJson, chartJson] = await Promise.all([
         coingeckoFetch(`/coins/${coinId}`, {
           params: {
-            localization: 'false',
-            tickers: 'false',
-            market_data: 'true',
-            community_data: 'false',
-            developer_data: 'false',
-            sparkline: 'false',
-            dex_pair_format: 'symbol',
+            localization: "false",
+            tickers: "false",
+            market_data: "true",
+            community_data: "false",
+            developer_data: "false",
+            sparkline: "false",
+            dex_pair_format: "symbol",
           },
           signal,
         }),
         coingeckoFetch(`/coins/${coinId}/market_chart`, {
           params: {
             vs_currency: currency,
-            days: '7',
+            days: "7",
           },
           signal,
         }),
       ]);
 
       const chartData = (chartJson?.prices || []).map(([timestamp, value]) => ({
-        label: format(new Date(timestamp), 'MMM d'),
+        label: format(new Date(timestamp), "MMM d"),
         value,
       }));
 
       setCoinDetail(detailJson);
       setChartPoints(chartData);
     } catch (fetchError) {
-      if (fetchError?.name === 'AbortError') {
+      if (fetchError?.name === "AbortError") {
         return;
       }
-      setDetailError(fetchError.message || 'An unexpected error occurred.');
+      setDetailError(fetchError.message || "An unexpected error occurred.");
     } finally {
       setDetailLoading(false);
     }
@@ -168,24 +169,20 @@ const App = () => {
   };
 
   return (
-    <div className="app">
-      <Header onRefresh={handleRefresh} lastUpdated={lastUpdated} isRefreshing={loading} />
-
-      <main>
-        <SearchForm onSubmit={handleFiltersSubmit} defaultValues={filters} isLoading={loading} />
-
-        <div className="content-grid">
-          <div className="primary-pane">
-            <DataTable
-              coins={filteredCoins}
-              onSelect={handleSelectCoin}
-              currency={filters.currency}
-              isLoading={loading}
-              error={error}
-            />
-          </div>
-
-          <div className="secondary-pane">
+    <div className="container g-5 my-4">
+      <Header
+        onRefresh={handleRefresh}
+        lastUpdated={lastUpdated}
+        isRefreshing={loading}
+      />
+      <main className="mt-4">
+        <SearchForm
+          onSubmit={handleFiltersSubmit}
+          defaultValues={filters}
+          isLoading={loading}
+        />
+        <div className="row flex-row-reverse g-4 mt-1">
+          <div className="col-lg-5">
             <DetailCard
               coin={coinDetail}
               chartData={chartPoints}
@@ -193,7 +190,18 @@ const App = () => {
               isLoading={detailLoading}
               error={detailError}
             />
-            <PortfolioCalculator coins={coins} currency={filters.currency} />
+            <div className="mt-4">
+              <PortfolioCalculator coins={coins} currency={filters.currency} />
+            </div>
+          </div>
+          <div className="col-lg-7">
+            <DataTable
+              coins={filteredCoins}
+              onSelect={handleSelectCoin}
+              currency={filters.currency}
+              isLoading={loading}
+              error={error}
+            />
           </div>
         </div>
       </main>

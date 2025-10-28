@@ -5,7 +5,7 @@ Author: Nashrullah Aji Wicaksono (NIM: 122140162)
 
 ## Deskripsi
 
-CryptoTrackr merupakan aplikasi ReactJS untuk memantau harga cryptocurrency secara real-time menggunakan CoinGecko API. Aplikasi ini menyediakan tabel market yang interaktif, filter berbasis rentang harga, kartu detail lengkap dengan grafik harga 7 hari, serta kalkulator portofolio untuk menghitung nilai aset kripto yang dimiliki.
+CryptoTrackr merupakan aplikasi ReactJS untuk memantau harga cryptocurrency menggunakan CoinGecko API. Aplikasi ini menyediakan tabel market interaktif, filter berbasis rentang harga, kartu detail lengkap dengan grafik harga 7 hari, serta kalkulator portofolio untuk menghitung nilai aset kripto yang dimiliki.
 
 ## Fitur Utama
 
@@ -14,16 +14,16 @@ CryptoTrackr merupakan aplikasi ReactJS untuk memantau harga cryptocurrency seca
 - Detail coin lengkap (deskripsi, harga, supply, volume) beserta grafik harga 7 hari.
 - Kalkulator portofolio untuk menghitung total nilai aset berdasarkan harga terbaru.
 - Tombol refresh data dengan indikator loading untuk memperbarui informasi secara instan.
-- Desain responsif menggunakan Flexbox dan CSS Grid.
+- Desain responsif berbasis Bootstrap standar.
 - Dukungan multi-currency (USD, EUR, IDR, SOL) mengikuti pembaruan dokumentasi CoinGecko.
 
 ## Tech Stack
 
 - **React + Vite**
 - **React Hooks**: `useState`, `useEffect`, `useMemo`
-- **Fetch API** untuk integrasi dengan CoinGecko
+- **Axios** sebagai HTTP client untuk CoinGecko API
+- **Bootstrap 5** untuk komponen UI responsif
 - **react-chartjs-2 + Chart.js** untuk visualisasi grafik harga
-- **CSS murni** dengan media queries dan pseudo-classes
 
 ## Struktur Proyek
 
@@ -40,7 +40,6 @@ CryptoTrackr merupakan aplikasi ReactJS untuk memantau harga cryptocurrency seca
 │   │   ├── PortfolioCalculator.jsx
 │   │   └── SearchForm.jsx
 │   ├── App.jsx
-│   ├── App.css
 │   ├── index.js
 │   ├── index.css
 │   └── utils/
